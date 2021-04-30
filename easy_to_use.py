@@ -13,7 +13,11 @@ def main():
     cursor = conection.cursor()
 
     completion = ["SELECT", "FROM", "CREATE", "TABLE",
-                  "INSERT", 'INTO', 'VALUES', 'WHERE', '!STOP!']
+                  "INSERT", 'INTO', 'VALUES', 'WHERE',
+                  ".help", "UPDATE", "DELETE", "ALTER",
+                  "DATABASE", "DROP", "INDEX", "clear",
+                  ".exit", ".list"]
+
     completer = Completer(completion)
     readline.set_completer(completer.complete)
     readline.parse_and_bind('tab: complete')
@@ -23,10 +27,17 @@ def main():
         if Command == '.exit':
             conection.close()
             exit()
+
         elif Command == '.help':
             print('hola mi amigo!')
+
         elif Command == 'clear':
             clear_terminal()
+
+        elif Command == '.list':
+            print("All the commands are : ")
+            for command in completion:
+                print("                      " + command)
 
         else:
             try:
@@ -50,3 +61,4 @@ def clear_terminal():
 
 if __name__ == "__main__":
     main()
+
